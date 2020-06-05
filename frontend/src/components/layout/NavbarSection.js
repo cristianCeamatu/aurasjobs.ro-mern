@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Container } from 'reactstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Container,
+} from 'reactstrap';
 import { FaBars } from 'react-icons/fa';
 
 import logo from './img/logonew4.png';
@@ -15,18 +21,17 @@ const NavbarSection = () => {
     <>
       <Navbar color="dark" dark fixed="top" expand="lg" id="mainNav">
         <Container className="container">
-          <NavbarBrand href="/" className="mr-auto">
-            <a href="/" className="navbar-brand">
-              <img src={logo} alt="Aurasjobs Logo" />
-            </a>
+          <NavbarBrand href="/" className="mr-auto navbar-brand">
+            <img src={logo} alt="Aurasjobs Logo" />
           </NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="navbar-toggler">
-            Menu
-            <FaBars />
+            Menu <FaBars className="icon" />
           </NavbarToggler>
           <Collapse isOpen={!collapsed} navbar>
             <NavbarLinks />
-            <NavbarLinksContacts />
+            <div className="d-block d-lg-none">
+              <NavbarLinksContacts />
+            </div>
           </Collapse>
         </Container>
       </Navbar>

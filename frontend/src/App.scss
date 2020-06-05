@@ -40,6 +40,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
 }
 
+.icon {
+    padding-bottom: 2px;
+}
+
 // Restyled Primary Buttons
 .btn:focus,
 .btn:active,
@@ -169,6 +173,9 @@ header {
     text-align: center;
     color: white;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    .container {
+        position: relative;
+    }
     a[href="#jobs"].btn-xl {
         @include button-variant(#ffffff, $theme-danger, $theme-danger);
         margin-left: 10px;
@@ -197,8 +204,10 @@ header {
                 font-size: 24px;
             }
         }
-        .header-contact{
-            display:none;
+        .header-contact .navbar-nav{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
         }
     }
     @media(min-width:768px) {

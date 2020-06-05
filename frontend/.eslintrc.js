@@ -1,23 +1,28 @@
 module.exports = {
+  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
   env: {
     browser: true,
+    commonjs: true,
     es6: true,
+    jest: true,
+    node: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  plugins: ['react'],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'linebreak-style': 0,
+    'jsx-a11y/href-no-hash': ['off'],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
+    'max-len': [
+      'warn',
+      {
+        code: 80,
+        tabWidth: 2,
+        comments: 80,
+        ignoreComments: false,
+        ignoreTrailingComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      },
+    ],
   },
 };
