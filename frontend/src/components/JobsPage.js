@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from './layout';
-import Jobs from './sections/Jobs';
+import JobsSection from './sections/JobsSection';
 
 const JobsPage = () => (
   <Layout>
-    <Jobs />
+    <JobsSection />
   </Layout>
 );
 

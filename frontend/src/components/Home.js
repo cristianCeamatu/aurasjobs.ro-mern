@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './layout';
 import Header from './sections/Header';
 import About from './sections/About';
-import Jobs from './sections/Jobs';
+import JobsSection from './sections/JobsSection';
 import Journey from './sections/Journey';
 import Apply from './sections/Apply';
 import Partners from './sections/Partners';
@@ -12,7 +12,7 @@ const Home = () => {
     <Layout>
       <Header />
       <About />
-      <Jobs />
+      <JobsSection />
       <Journey />
       <Apply />
       <Partners />

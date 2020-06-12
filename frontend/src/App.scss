@@ -15,6 +15,10 @@ button:hover {
     color: $theme-primary !important;
 }
 
+.bg-primary {
+    background-color: $theme-primary !important;
+}
+
 p {
     line-height: 1.75;
 }
@@ -44,6 +48,15 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 2px;
 }
 
+.textarea-remaining {
+    color: $gray-light;
+    font-size: 80%;
+    position: relative;
+    top: -24px;
+    right: 8px;
+    float: right;
+}
+
 // Restyled Primary Buttons
 .btn:focus,
 .btn:active,
@@ -68,12 +81,15 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: none;
     text-transform: none;
     border-width: 2px;
+    &.btn-danger {
+        @include button-variant(#ffffff, $theme-danger, $theme-danger);
+    }
 }
 
 // Custom Navigation Bar
 #mainNav {
-    background-color: $gray-darker;
-    padding: 0;
+    // background-color: $gray-darker;
+    background-color: rgba($gray-dark, 0.05);
     font-size: 90%;
     .navbar-toggler {
         z-index:1;
@@ -83,7 +99,6 @@ h1, h2, h3, h4, h5, h6 {
         outline: none;
         font-size: 12px;
         @include heading-font;
-        padding: 8px;
     }
     .container {
         // Temporary navbar container fix until Bootstrap 4 is patched
@@ -93,11 +108,11 @@ h1, h2, h3, h4, h5, h6 {
             }
         }
         .navbar-brand {
-            padding: 0;
-            margin: 0;
-            img {
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+            img{
                 max-height: 50px;
-                border-radius: 2px;
             }
         }
         .navbar-nav {
@@ -115,15 +130,19 @@ h1, h2, h3, h4, h5, h6 {
                     }
                     &:hover,
                     &.active {
-                        background: $gray-dark;
+                        background-color: rgba($theme-danger, 0.5);
                     }
                 }
-            }
-            .nav-link-contact {
-                color: lighten($theme-primary, 20%) !important;
-                padding: 8px;
+                .nav-link-contact {
+                    color: lighten($theme-primary, 20%) !important;
+                    padding: 8px;
+                }
             }
         }
+    }
+    &.navbar-shrink {
+        background-color: $gray-darker;
+        padding: 0;
     }
     @media(min-width:992px) {
         & {
@@ -132,32 +151,31 @@ h1, h2, h3, h4, h5, h6 {
             -moz-transition: padding 0.3s;
             transition: padding 0.3s;
             border: none;
-            .navbar-brand {
-                -webkit-transition: all 0.3s;
-                -moz-transition: all 0.3s;
-                transition: all 0.3s;
-            }
             .navbar-nav {  
                 .nav-item {
                     .nav-link {
-                        padding: 1.1em 1em !important;
-                        margin-bottom: 0;
+                        padding: 0.6em 1em !important;
+                        margin: 0;
                         &:hover,
                         &.active {
                             color:white!important;
-                            background-color: rgba(237, 29, 49, 0.55);
-                            border-radius:8%;
+                            background-color: rgba($theme-danger, 0.55);
                         }
+                    }
+                    &.nav-item-focus {
+                        background-color: rgba($theme-danger, 0.3);
                     }
                     .flag {
                         border: none!important;
-                        padding: 0.9rem !important;
                     }
                 }
             }
-            &.navbar-shrink {
-                background-color: $gray-darker;
-                padding: 0;
+        }
+        &.navbar-shrink {
+            .nav-item {
+                .nav-link {
+                    padding: 0.4em 1em !important;
+                }
             }
         }
     }
@@ -176,8 +194,7 @@ header {
     .container {
         position: relative;
     }
-    a[href="#jobs"].btn-xl {
-        @include button-variant(#ffffff, $theme-danger, $theme-danger);
+    .btn-danger {
         margin-left: 10px;
     }
     .intro-text {
@@ -204,11 +221,7 @@ header {
                 font-size: 24px;
             }
         }
-        .header-contact .navbar-nav{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
+
     }
     @media(min-width:768px) {
         & {
@@ -237,7 +250,6 @@ header {
         & {
             .intro-text{
                 .header-contact{
-                    display:block;
                     position:absolute;
                     left:0;
                     bottom:7%;
@@ -252,7 +264,7 @@ header {
 
 // Global Section Styles
 section {
-    padding: 60px 0;
+    padding: 90px 0;
     h2.section-heading {
         font-size: 40px;
         margin-top: 0;
@@ -266,11 +278,7 @@ section {
         font-weight: 400;
         margin-bottom: 75px;
     }
-    @media(min-width:768px) {
-        & {
-            padding: 90px 0;
-        }
-    }
+
 }
 
 // Team Section
@@ -318,9 +326,8 @@ section {
 
 // Jobs Section
 #jobs {
-    padding: 0 0 60px;
     .portfolio-item {
-        padding-top: 30px;
+        margin-top: 30px;
         &:not(:last-child) {
             border-bottom: 1px solid $gray-lighter;
         }
@@ -402,7 +409,7 @@ section {
         box-shadow: none;
         border: none;
         min-height: 100%;
-        padding: 100px 0;
+        padding:  0;
         text-align: center;
         .modal-body {
             width:100%;
@@ -446,41 +453,6 @@ section {
             margin-bottom: 30px;
         }
     }
-    .close-modal {
-        position: absolute;
-        width:75px;
-        height:75px;
-        background-color:transparent;
-        top: 25px;
-        right: 25px;
-        cursor: pointer;
-        &:hover {
-            opacity: 0.3;
-        }
-        .lr {
-            height:75px;
-            width:1px;
-            margin-left:35px;
-            background-color:$gray-darker;
-            transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            /* IE 9 */
-            -webkit-transform: rotate(45deg);
-            /* Safari and Chrome */
-            z-index:1051;
-            .rl {
-                height:75px;
-                width:1px;
-                background-color:$gray-darker;
-                transform: rotate(90deg);
-                -ms-transform: rotate(90deg);
-                /* IE 9 */
-                -webkit-transform: rotate(90deg);
-                /* Safari and Chrome */
-                z-index:1052;
-            }            
-        }        
-    }
     .modal-backdrop {
         opacity: 0;
         display: none;
@@ -494,17 +466,6 @@ section {
             text-decoration:none;
         }
     }
-    // .service-fast {
-    //     background-color: #dff0d8;
-    //     border-color: #d0e9c6;        
-    // }
-    // .applicationForm {
-    //     background-color: #dff0d8;
-    //     padding:25px 0;
-    //     & textarea {
-    //         height:9rem;
-    //     }
-    // }
 }
 
 // Application Process
@@ -704,13 +665,9 @@ section {
         a {
             color: $gray-dark;
         }
-        i {
-            color: lighten($theme-danger, 10%) !important;
-            margin-bottom: 10px;
-        }
     }
     .applyForm {
-        margin-top: 90px;
+        margin-top: 30px;
         a {
             color: lighten($theme-danger, 10%) !important;
         }
@@ -735,12 +692,6 @@ section {
                 line-height: 2;
                 padding: 5px;
                 border-radius: 2px;
-                i {
-                    color: $theme-primary;
-                    border: 1px solid lighten($theme-primary, 10%);
-                    border-radius: 50%;
-                    padding: 15px;
-                }
                 strong {
                     color: darken($theme-primary, 10%);
                 }

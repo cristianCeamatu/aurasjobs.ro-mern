@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 import Typed from 'react-typed';
+import { Link } from 'react-scroll';
 
 import NavbarLinksContacts from '../layout/NavbarLinksContacts';
 
 const Header = () => {
-  console.log(Typed);
   return (
     <header>
       <Container className="container">
@@ -18,7 +18,6 @@ const Header = () => {
                   'Vase de croaziera',
                   'Hoteluri in Cipru',
                   'Hoteluri in Germania',
-                  'Agricultura',
                 ]}
                 typeSpeed={40}
                 backSpeed={50}
@@ -26,20 +25,28 @@ const Header = () => {
               />
             </h3>
           </div>
-          {/* <script>
-                  var typed = new Typed('#typed', {
-                    stringsElement: '#typed-strings',
-                    typeSpeed: 40,
-                    backSpeed: 55,
-                    loop: true,
-                  });
-                </script> */}
-          <a href="#apply" className="page-scroll btn btn-xl">
+          <Link
+            to="apply"
+            spy
+            smooth
+            offset={-70}
+            duration={500}
+            className="btn btn-xl py-1 px-3"
+            href="#apply"
+          >
             Aplica
-          </a>
-          <a href="#jobs" className="page-scroll btn btn-xl">
+          </Link>
+          <Link
+            to="jobs"
+            spy
+            smooth
+            offset={-70}
+            duration={500}
+            className="btn btn-xl btn-danger py-1 px-3"
+            href="#jobs"
+          >
             Joburi
-          </a>
+          </Link>
           <div className="header-contact d-none d-lg-block">
             <NavbarLinksContacts />
           </div>

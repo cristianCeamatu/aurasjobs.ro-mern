@@ -1,9 +1,14 @@
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
-import { FaPhone, FaFacebook, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import {
+  FaPhoneAlt,
+  FaFacebookF,
+  FaEnvelope,
+  FaGlobeEurope,
+} from 'react-icons/fa';
 
 const NavbarLinksContacts = () => (
-  <Nav navbar className="navbar-nav ml-auto">
+  <Nav className="navbar-nav d-lg-flex flex-lg-row">
     <NavItem>
       <NavLink
         className="nav-link-contact"
@@ -19,22 +24,22 @@ const NavbarLinksContacts = () => (
         href="https://www.facebook.com/aurasjobs.ro"
         target="_blank"
       >
-        <FaFacebook className="icon" /> @aurasjobs
+        <FaFacebookF className="icon" /> @aurasjobs
       </NavLink>
     </NavItem>
     <NavItem>
       <NavLink className="nav-link-contact" href="tel:0040725085231">
-        <FaPhone /> 0725 085 231
+        <FaPhoneAlt /> 0725 085 231
       </NavLink>
     </NavItem>
     <NavItem>
       <NavLink className="nav-link-contact" href="tel:0040730719323">
-        <FaPhone className="icon" /> 0730 719 323
+        <FaPhoneAlt className="icon" /> 0730 719 323
       </NavLink>
     </NavItem>
     <NavItem>
       <NavLink className="nav-link-contact" href="tel:0040728683604">
-        <FaPhone className="icon" /> 0728 683 604
+        <FaPhoneAlt className="icon" /> 0728 683 604
       </NavLink>
     </NavItem>
     <NavItem>
@@ -43,7 +48,8 @@ const NavbarLinksContacts = () => (
         href="https://www.google.com/maps/place/aurasjobs.ro+-+Locuri+de+munca+vase+de+croaziera/@44.1770587,28.6430217,17z/data=!3m1!4b1!4m5!3m4!1s0x40bae51edba75ef3:0xd66d2d2bbae39b8f!8m2!3d44.1770549!4d28.6452104"
         target="_blank"
       >
-        <FaGlobe className="icon" /> Locatie: Stefan cel Mare 56, Constanta
+        <FaGlobeEurope className="icon" /> Locatie: Stefan cel Mare 56,
+        Constanta
       </NavLink>
     </NavItem>
   </Nav>
