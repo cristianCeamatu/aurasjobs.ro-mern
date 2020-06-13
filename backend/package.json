@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for aurasjobs-mern",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix ../frontend",
+    "dev": "concurrently \"nodemon run server\" \"npm run client\""
+  },
+  "author": "Ceamatu Cristian Viorel",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "config": "^3.3.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "concurrently": "^5.2.0"
+  }
+}
