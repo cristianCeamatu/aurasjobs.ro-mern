@@ -12,12 +12,12 @@ const ApplyModal = () => {
   const [modal, setModal] = React.useState(false);
 
   const onSubmit = (data) => {
-    setModal(true);
     console.log(data);
 
+    setModal(true);
     setTimeout(() => {
       reset();
-      setModal(false);
+      setModal(!modal);
     }, 10000);
   };
 
@@ -218,6 +218,8 @@ const ApplyModal = () => {
                   type="file"
                   className="form-control p-1"
                   name="cv"
+                  accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   ref={register({
                     required: {
                       value: true,
