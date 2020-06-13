@@ -14,7 +14,7 @@ const Job = ({ job }) => {
   const { company, label, bgColor, img, imgModal, jobModal } = job;
   return (
     <div className="col-lg-4 col-md-6 portfolio-item">
-      <a href="/" onClick={toggle} className="portfolio-link text-center">
+      <a href="/" onClick={toggle} className="portfolio-link text-center py-2">
         <div className="portfolio-hover">
           <div className="portfolio-hover-content">
             <FaPlus size={50} />

@@ -14,7 +14,7 @@ const ApplyModal = () => {
   const onSubmit = (data) => {
     setModal(true);
     console.log(data);
-    console.log(data.cv[0]);
+
     setTimeout(() => {
       reset();
       setModal(false);
@@ -217,7 +217,6 @@ const ApplyModal = () => {
                 <input
                   type="file"
                   className="form-control p-1"
-                  placeholder="Upload CV *"
                   name="cv"
                   ref={register({
                     required: {
@@ -238,7 +237,7 @@ const ApplyModal = () => {
                   type="file"
                   className="form-control p-1"
                   name="identificationDocument"
-                  ref={register}
+                  ref={register()}
                 />
                 <p className="text-left text-danger pl-2">
                   {errors.identificationDocument &&
