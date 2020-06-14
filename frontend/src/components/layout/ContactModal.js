@@ -1,11 +1,25 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import ContactModalFooter from './ContactModalFooter';
 
 const ContactModal = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const [submited, setSubmited] = React.useState(false);
+  const [contact, setContact] = React.useState({});
+  const { register, handleSubmit, reset, errors } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('/api/v1/contact', data);
+
+      setSubmited(true);
+      setContact(response.data.data);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Textarea remaining chars
   const [messageLength, setMessageLength] = React.useState(0);
@@ -136,10 +150,32 @@ const ContactModal = () => {
                 </div>
                 <div className="clearfix" />
                 <div className="col-lg-12 text-center">
-                  <div id="success" />
-                  <button type="submit" className="btn btn-xl">
-                    Trimite
-                  </button>
+                  {submited ? (
+                    <div className="alert alert-info">
+                      Iti multumim pentru cererea de contact. Te rugam sa
+                      verifici detaliile:{' '}
+                      <ul className="list-group my-2">
+                        <li className="list-group-item">
+                          <small className="text-danger">
+                            {' '}
+                            Telefon: {contact.phone}
+                          </small>
+                        </li>
+                        <li className="list-group-item">
+                          <small className="text-danger">
+                            {' '}
+                            Email: {contact.email}
+                          </small>
+                        </li>
+                      </ul>
+                      Daca nu te vom suna in urmatoarele zile te rugam sa ne
+                      contactezi telefonic.
+                    </div>
+                  ) : (
+                    <button type="submit" className="btn btn-xl">
+                      Trimite
+                    </button>
+                  )}
                 </div>
               </div>
             </form>
