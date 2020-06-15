@@ -9,12 +9,13 @@ import NavbarLinksContacts from './NavbarLinksContacts';
 
 const NavbarSection = () => {
   // Used for reactstrap Navbar
-  const [collapsed, setCollapsed] = useState(true);
-  const toggleNavbar = () => setCollapsed(!collapsed);
+  const [open, setOpen] = useState(false);
+  const toggleNavbar = () => setOpen(!open);
 
   // Clicking the brand logo
   function scrollToTop(e) {
     e.preventDefault();
+    toggleNavbar();
     scroll.scrollToTop();
   }
 
@@ -32,8 +33,7 @@ const NavbarSection = () => {
       fixed="top"
       expand="lg"
       id="mainNav"
-      onClick={toggleNavbar}
-      className={scrolled > 200 || !collapsed ? 'navbar-shrink' : 'p-1'}
+      className={scrolled > 200 || open ? 'navbar-shrink' : 'p-1'}
     >
       <div className="container">
         <NavbarBrand href="/" onClick={scrollToTop} className="p-0">
@@ -45,8 +45,8 @@ const NavbarSection = () => {
         >
           Menu <FaBars />
         </NavbarToggler>
-        <Collapse isOpen={!collapsed} navbar>
-          <NavbarLinks toggleNavbar={toggleNavbar} />
+        <Collapse isOpen={open} navbar>
+          <NavbarLinks />
           {/* Hide on large devices, will show in Header on large devices  */}
           <div className="d-block d-lg-none">
             <NavbarLinksContacts />
