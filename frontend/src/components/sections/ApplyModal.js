@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
 
 const ApplyModal = () => {
-  const { handleSubmit, register, reset, errors, setValue } = useForm();
+  const { handleSubmit, register, reset, errors } = useForm();
 
   // Used for textarea
   const [messageLength, setMessageLength] = React.useState(0);
@@ -101,7 +101,6 @@ const ApplyModal = () => {
                   name="name"
                   className="form-control"
                   placeholder="Numele complet *"
-                  // onChange={(e) => setName(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
@@ -119,7 +118,6 @@ const ApplyModal = () => {
                   className="form-control"
                   placeholder="Adresa de email *"
                   name="email"
-                  // onChange={(e) => setEmail(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
@@ -137,7 +135,6 @@ const ApplyModal = () => {
                   className="form-control"
                   placeholder="Numarul de telefon *"
                   name="phone"
-                  // onChange={(e) => setPhone(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
@@ -155,10 +152,7 @@ const ApplyModal = () => {
                   placeholder="Mesajul tau"
                   rows="25"
                   name="applyMessage"
-                  onChange={(e) => {
-                    setMessageLength(e.target.value.length);
-                    // setMessage(e.target.value);
-                  }}
+                  onChange={(e) => setMessageLength(e.target.value.length)}
                   ref={register}
                 />
                 <span className="textarea-remaining">
@@ -178,7 +172,6 @@ const ApplyModal = () => {
                 <select
                   className="form-control"
                   name="department"
-                  // onChange={(e) => setDepartment(e.target.value)}
                   defaultValue="restaurant/bar"
                   ref={register}
                 >

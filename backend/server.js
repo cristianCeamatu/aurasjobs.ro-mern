@@ -35,8 +35,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.get("/", (req, res) => res.send("<h1>Hello world</h1>"));
-
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`)
 );
