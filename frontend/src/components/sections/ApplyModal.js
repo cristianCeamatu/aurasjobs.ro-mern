@@ -1,39 +1,56 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
-import { Modal } from 'reactstrap';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-import { FaCloudDownloadAlt, FaTimes } from 'react-icons/fa';
+import { FaCloudDownloadAlt } from 'react-icons/fa';
 
 const ApplyModal = () => {
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { handleSubmit, register, reset, errors, setValue } = useForm();
 
-  // Feedback for submitting the form
-  const [modal, setModal] = React.useState(false);
-
-  const onSubmit = (data) => {
-    setModal(true);
-    console.log(data);
-
-    setTimeout(() => {
-      reset();
-      setModal(false);
-    }, 10000);
-  };
-
-  const toggle = (e) => {
-    e.preventDefault();
-    reset();
-    setModal(!modal);
-  };
-
+  // Used for textarea
   const [messageLength, setMessageLength] = React.useState(0);
+
+  // Used for submitting the form
+  const [submited, setSubmited] = useState(false);
+  const [application, setApplication] = useState({});
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('phone', data.phone);
+    formData.append('department', data.department);
+    formData.append('cv', data.cv[0]);
+    if (data.id) formData.append('id', data.id[0]);
+    if (data.message) formData.append('message', data.message);
+
+    try {
+      const response = await axios.post('/api/v1/application', formData, {
+        header: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      if (response.data.success) {
+        setSubmited(true);
+        setApplication(response.data.application);
+        reset();
+      }
+    } catch (error) {
+      if (error.response.status === 500) {
+        console.log(error);
+      } else {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className="row applyForm">
       <div className="col-md-12">
         <form
-          name="applyForm"
           id="applyForm"
           encType="multipart/form-data"
           onSubmit={handleSubmit(onSubmit)}
@@ -76,31 +93,24 @@ const ApplyModal = () => {
               </div>
             </div>
           </div>
-          <div className={`row ${modal && 'd-none'}`}>
+          <div className="row">
             <div className="col-md-6">
               <div className="form-group">
                 <input
                   type="text"
-                  name="applyName"
+                  name="name"
                   className="form-control"
                   placeholder="Numele complet *"
+                  // onChange={(e) => setName(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Acest camp este obligatoriu',
-                    },
-                    minLength: {
-                      value: 5,
-                      message: 'Minim 5 caractere',
-                    },
-                    maxLength: {
-                      value: 50,
-                      message: 'Maxim 50 de caractere',
+                      message: 'This field is required',
                     },
                   })}
                 />
                 <p className="text-left text-left text-danger pl-2">
-                  {errors.applyName && errors.applyName.message}
+                  {errors.name && errors.name.message}
                 </p>
               </div>
               <div className="form-group">
@@ -108,24 +118,17 @@ const ApplyModal = () => {
                   type="email"
                   className="form-control"
                   placeholder="Adresa de email *"
-                  name="applyEmail"
+                  name="email"
+                  // onChange={(e) => setEmail(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Acest camp este obligatoriu',
-                    },
-                    minLength: {
-                      value: 5,
-                      message: 'Minim 5 caractere',
-                    },
-                    maxLength: {
-                      value: 50,
-                      message: 'Maxim 50 de caractere',
+                      message: 'This field is required',
                     },
                   })}
                 />
                 <p className="text-left text-danger pl-2">
-                  {errors.applyEmail && errors.applyEmail.message}
+                  {errors.email && errors.email.message}
                 </p>
               </div>
               <div className="form-group">
@@ -133,24 +136,17 @@ const ApplyModal = () => {
                   type="tel"
                   className="form-control"
                   placeholder="Numarul de telefon *"
-                  name="applyPhone"
+                  name="phone"
+                  // onChange={(e) => setPhone(e.target.value)}
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Acest camp este obligatoriu',
-                    },
-                    minLength: {
-                      value: 8,
-                      message: 'Minim 8 caractere',
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: 'Maxim 20 de caractere',
+                      message: 'This field is required',
                     },
                   })}
                 />
                 <p className="text-left text-danger pl-2">
-                  {errors.applyPhone && errors.applyPhone.message}
+                  {errors.phone && errors.phone.message}
                 </p>
               </div>
               <div className="form-group">
@@ -159,17 +155,11 @@ const ApplyModal = () => {
                   placeholder="Mesajul tau"
                   rows="25"
                   name="applyMessage"
-                  onChange={(e) => setMessageLength(e.target.value.length)}
-                  ref={register({
-                    minLength: {
-                      value: 10,
-                      message: 'Minim 10 caractere',
-                    },
-                    maxLength: {
-                      value: 2000,
-                      message: 'Maxim 2000 de caractere',
-                    },
-                  })}
+                  onChange={(e) => {
+                    setMessageLength(e.target.value.length);
+                    // setMessage(e.target.value);
+                  }}
+                  ref={register}
                 />
                 <span className="textarea-remaining">
                   {`${messageLength}/2000`}
@@ -188,10 +178,9 @@ const ApplyModal = () => {
                 <select
                   className="form-control"
                   name="department"
+                  // onChange={(e) => setDepartment(e.target.value)}
                   defaultValue="restaurant/bar"
-                  ref={register({
-                    required: true,
-                  })}
+                  ref={register}
                 >
                   <option value="chefs">Chefs</option>
                   <option value="restaurant/bar">Restaurant/Bar</option>
@@ -202,7 +191,7 @@ const ApplyModal = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="CV" className="text-muted">
+                <label htmlFor="cv" className="text-muted">
                   Uploadeaza CV sau{' '}
                   <a
                     href="http://www.aurasjobs.ro/downloads/aurasjobs_simple_cv_model.docx"
@@ -218,12 +207,9 @@ const ApplyModal = () => {
                   type="file"
                   className="form-control p-1"
                   name="cv"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: 'Acest camp este obligatoriu',
-                    },
-                  })}
+                  accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  ref={register}
                 />
                 <p className="text-left text-danger pl-2">
                   {errors.cv && errors.cv.message}
@@ -236,52 +222,70 @@ const ApplyModal = () => {
                 <input
                   type="file"
                   className="form-control p-1"
-                  name="identificationDocument"
-                  ref={register()}
+                  name="id"
+                  ref={register}
                 />
                 <p className="text-left text-danger pl-2">
-                  {errors.identificationDocument &&
-                    errors.identificationDocument.message}
+                  {errors.id && errors.id.message}
                 </p>
               </div>
             </div>
             <div className="clearfix" />
             <div className="col-lg-12 text-center">
-              <small className="mt-2">
-                Apasand pe APLICA sunteti de acord cu{' '}
-                <a
-                  href="http://www.aurasjobs.ro/downloads/gdprRO.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {submited ? (
+                <div
+                  className="alert alert-info alert-dismissible fade show text-left my-2"
+                  role="alert"
                 >
-                  termenii si conditiile
-                </a>{' '}
-                prelucrarilor de date
-              </small>
-              <button type="submit" className="btn btn-xl d-block mx-auto">
-                Aplica
-              </button>
+                  <p>
+                    Iti multumim pentru aplicatie! Te rugam sa verifici
+                    detaliile de contact
+                  </p>
+                  <ul className="list-group my-1">
+                    <li className="list-group-item">
+                      <small className="text-danger">
+                        Telefon: {application.phone}
+                      </small>
+                    </li>
+                    <li className="list-group-item">
+                      <small className="text-danger">
+                        Email: {application.email}
+                      </small>
+                    </li>
+                  </ul>
+                  <p>
+                    Daca nu te vom suna in urmatoarele zile te rugam sa
+                    contactezi telefonic.
+                  </p>
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={() => setSubmited(false)}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <small className="mt-2">
+                    Apasand pe APLICA sunteti de acord cu{' '}
+                    <a
+                      href="http://www.aurasjobs.ro/downloads/gdprRO.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      termenii si conditiile
+                    </a>{' '}
+                    prelucrarilor de date
+                  </small>
+                  <button type="submit" className="btn btn-xl d-block mx-auto">
+                    Aplica
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </form>
-
-        {modal && (
-          <Modal isOpen={modal} toggle={toggle} size="sm" centered>
-            <div className="text-center p-4" role="alert">
-              <p>
-                Felicitari! Aplicatia ta a fost depusa. Daca nu te sunam in
-                cateva zile te rugam sa ne contactezi telefonic.
-              </p>
-              <button
-                type="button"
-                className="btn btn-danger d-inline mx-auto my-3"
-                onClick={toggle}
-              >
-                <FaTimes /> Inchide
-              </button>
-            </div>
-          </Modal>
-        )}
       </div>
     </div>
   );

@@ -4,9 +4,9 @@ import { Link } from 'react-scroll';
 
 import ukFlag from './img/uk_flag_42x28.png';
 
-const NavbarLinks = () => {
+const NavbarLinks = ({ toggleNavbar }) => {
   return (
-    <Nav className="navbar-nav ml-auto">
+    <Nav className="navbar-nav ml-auto" onClick={toggleNavbar}>
       <NavItem className="nav-item">
         <Link
           activeClass="active"
@@ -17,6 +17,7 @@ const NavbarLinks = () => {
           duration={500}
           className="nav-link"
           href="#about"
+          onClick={toggleNavbar}
         >
           Despre
         </Link>
@@ -31,6 +32,7 @@ const NavbarLinks = () => {
           duration={500}
           className="nav-link"
           href="#about"
+          onClick={toggleNavbar}
         >
           Joburi
         </Link>
@@ -45,6 +47,7 @@ const NavbarLinks = () => {
           duration={500}
           className="nav-link"
           href="#journey"
+          onClick={toggleNavbar}
         >
           Etape
         </Link>
@@ -59,6 +62,7 @@ const NavbarLinks = () => {
           duration={500}
           className="nav-link"
           href="#apply"
+          onClick={toggleNavbar}
         >
           Aplica
         </Link>
@@ -73,12 +77,17 @@ const NavbarLinks = () => {
           duration={500}
           className="nav-link"
           href="#contact"
+          onClick={toggleNavbar}
         >
           Contact
         </Link>
       </NavItem>
       <NavItem className="nav-item p-0">
-        <NavLink className="nav-link flag pb-2" href="#contact">
+        <NavLink
+          className="nav-link flag pb-2"
+          href="#contact"
+          onClick={toggleNavbar}
+        >
           <img
             src={ukFlag}
             width="36"

@@ -18,7 +18,7 @@ const NavbarSection = () => {
     scroll.scrollToTop();
   }
 
-  // Animate the Navbar
+  // Animate the Navbar when
   const [scrolled, setScrolled] = useState(window.scrollY);
   useEffect(() => {
     const logScroll = () => setScrolled(window.scrollY);
@@ -32,6 +32,7 @@ const NavbarSection = () => {
       fixed="top"
       expand="lg"
       id="mainNav"
+      onClick={toggleNavbar}
       className={scrolled > 200 || !collapsed ? 'navbar-shrink' : 'p-1'}
     >
       <div className="container">
@@ -45,7 +46,7 @@ const NavbarSection = () => {
           Menu <FaBars />
         </NavbarToggler>
         <Collapse isOpen={!collapsed} navbar>
-          <NavbarLinks />
+          <NavbarLinks toggleNavbar={toggleNavbar} />
           {/* Hide on large devices, will show in Header on large devices  */}
           <div className="d-block d-lg-none">
             <NavbarLinksContacts />
