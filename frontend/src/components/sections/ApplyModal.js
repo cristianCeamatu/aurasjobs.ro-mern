@@ -9,11 +9,12 @@ const ApplyModal = () => {
   const { handleSubmit, register, reset, errors } = useForm();
 
   // Used for textarea
-  const [messageLength, setMessageLength] = React.useState(0);
+  const [messageLength, setMessageLength] = useState(0);
 
   // Used for submitting the form
   const [submited, setSubmited] = useState(false);
   const [application, setApplication] = useState({});
+  const [error, setError] = useState({});
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -27,23 +28,27 @@ const ApplyModal = () => {
     if (data.message) formData.append('message', data.message);
 
     try {
-      const response = await axios.post('/api/v1/application', formData, {
-        header: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        '/api/v1/events/new-application',
+        formData,
+        {
+          header: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       console.log(response.data);
       if (response.data.success) {
         setSubmited(true);
-        setApplication(response.data.application);
+        setApplication(response.data.data);
+        setError({});
         reset();
       }
     } catch (error) {
-      if (error.response.status === 500) {
-        console.log(error);
-      } else {
-        console.log(error);
-      }
+      setError({
+        status: 404,
+        msg: 'Client error, please inform the administrator.',
+      });
     }
   };
 
@@ -225,6 +230,7 @@ const ApplyModal = () => {
             </div>
             <div className="clearfix" />
             <div className="col-lg-12 text-center">
+              {error ? <p className="bg-danger text-white">{error.msg}</p> : ''}
               {submited ? (
                 <div
                   className="alert alert-info alert-dismissible fade show text-left my-2"

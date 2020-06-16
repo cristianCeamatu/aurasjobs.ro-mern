@@ -7,17 +7,26 @@ import ContactModalFooter from './ContactModalFooter';
 const ContactModal = () => {
   const [submited, setSubmited] = React.useState(false);
   const [contact, setContact] = React.useState({});
+  const [error, setError] = React.useState({});
   const { register, handleSubmit, reset, errors } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/v1/contact', data);
+      const response = await axios.post('/api/v1/events/contactRequest', data);
 
-      setSubmited(true);
-      setContact(response.data.data);
-      reset();
+      if (response.data.success) {
+        setSubmited(true);
+        setContact(response.data.data);
+        setError({});
+        reset();
+      } else {
+        setError(response.data.error);
+      }
     } catch (error) {
-      console.log(error);
+      setError({
+        status: 404,
+        msg: 'Client error, please inform the administrator.',
+      });
     }
   };
 
@@ -150,26 +159,36 @@ const ContactModal = () => {
                 </div>
                 <div className="clearfix" />
                 <div className="col-lg-12 text-center">
+                  {error ? (
+                    <p className="bg-danger text-white">{error.msg}</p>
+                  ) : (
+                    ''
+                  )}
                   {submited ? (
-                    <div className="alert alert-info">
+                    <div className="alert alert-info alert-dismissible fade show text-left my-2">
                       Iti multumim pentru cererea de contact. Te rugam sa
                       verifici detaliile:{' '}
-                      <ul className="list-group my-2">
+                      <ul className="list-group my-1">
                         <li className="list-group-item">
                           <small className="text-danger">
-                            {' '}
                             Telefon: {contact.phone}
                           </small>
                         </li>
                         <li className="list-group-item">
                           <small className="text-danger">
-                            {' '}
                             Email: {contact.email}
                           </small>
                         </li>
                       </ul>
                       Daca nu te vom suna in urmatoarele zile te rugam sa ne
                       contactezi telefonic.
+                      <button
+                        type="button"
+                        className="close"
+                        onClick={() => setSubmited(false)}
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
                   ) : (
                     <button type="submit" className="btn btn-xl">
