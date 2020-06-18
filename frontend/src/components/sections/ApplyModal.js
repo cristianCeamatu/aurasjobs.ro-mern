@@ -6,25 +6,25 @@ import { useForm } from 'react-hook-form';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
 
 const ApplyModal = () => {
-  const { handleSubmit, register, reset, errors } = useForm();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Used for textarea
   const [messageLength, setMessageLength] = useState(0);
 
-  // Used for submitting the form
-  const [submited, setSubmited] = useState(false);
-  const [application, setApplication] = useState({});
-  const [error, setError] = useState({});
+  const { handleSubmit, register, reset, errors } = useForm();
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
+    setLoading(true);
+    setError('');
 
+    const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('phone', data.phone);
     formData.append('department', data.department);
     formData.append('cv', data.cv[0]);
-    if (data.id) formData.append('id', data.id[0]);
     if (data.message) formData.append('message', data.message);
 
     try {
@@ -37,18 +37,12 @@ const ApplyModal = () => {
           },
         }
       );
-      console.log(response.data);
-      if (response.data.success) {
-        setSubmited(true);
-        setApplication(response.data.data);
-        setError({});
-        reset();
-      }
+      setData(response.data.data);
+      setLoading(false);
+      reset();
     } catch (error) {
-      setError({
-        status: 404,
-        msg: 'Client error, please inform the administrator.',
-      });
+      setError(error.response.data.error);
+      setLoading(false);
     }
   };
 
@@ -109,7 +103,7 @@ const ApplyModal = () => {
                   ref={register({
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: 'Acest camp este obligatoriu',
                     },
                   })}
                 />
@@ -126,7 +120,7 @@ const ApplyModal = () => {
                   ref={register({
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: 'Acest camp este obligatoriu',
                     },
                   })}
                 />
@@ -143,7 +137,7 @@ const ApplyModal = () => {
                   ref={register({
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: 'Acest camp este obligatoriu',
                     },
                   })}
                 />
@@ -169,10 +163,10 @@ const ApplyModal = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="form-group col-xs-12">
+              <div className="form-group col-xs-12 mb-md-5">
                 <br />
                 <label forhtml="department" className="text-muted">
-                  Departmanetul pentru care aplici
+                  Departamentul pentru care aplici
                 </label>
                 <select
                   className="form-control"
@@ -207,64 +201,55 @@ const ApplyModal = () => {
                   name="cv"
                   accept="application/pdf,application/msword,
   application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  ref={register}
+                  ref={register({
+                    required: {
+                      value: true,
+                      message:
+                        'Va rugam sa uploadati CV-ul in format pdf sau word',
+                    },
+                  })}
                 />
                 <p className="text-left text-danger pl-2">
                   {errors.cv && errors.cv.message}
                 </p>
               </div>
-              <div className="form-group">
-                <label htmlFor="identificationDocument" className="text-muted">
-                  Uploadeza copie dupa buletin sau pasaport (OPTIONAL)
-                </label>
-                <input
-                  type="file"
-                  className="form-control p-1"
-                  name="id"
-                  ref={register}
-                />
-                <p className="text-left text-danger pl-2">
-                  {errors.id && errors.id.message}
-                </p>
-              </div>
             </div>
             <div className="clearfix" />
             <div className="col-lg-12 text-center">
-              {error ? <p className="bg-danger text-white">{error.msg}</p> : ''}
-              {submited ? (
+              {error && <p className="bg-danger text-white p-2">{error}</p>}
+              {data && (
                 <div
-                  className="alert alert-info alert-dismissible fade show text-left my-2"
+                  className="alert alert-info alert-dismissible fade show my-2"
                   role="alert"
                 >
-                  <p>
+                  <p className="text-center">
                     Iti multumim pentru aplicatie! Te rugam sa verifici
                     detaliile de contact
                   </p>
                   <ul className="list-group my-1">
                     <li className="list-group-item">
                       <small className="text-danger">
-                        Telefon: {application.phone}
+                        Telefon: {data.phone}
                       </small>
                     </li>
                     <li className="list-group-item">
-                      <small className="text-danger">
-                        Email: {application.email}
-                      </small>
+                      <small className="text-danger">Email: {data.email}</small>
                     </li>
                   </ul>
-                  <p>
+                  <p className="text-center">
                     Daca nu te vom suna in urmatoarele zile te rugam sa
                     contactezi telefonic.
                   </p>
                   <button
                     type="button"
                     className="close"
-                    onClick={() => setSubmited(false)}
+                    onClick={() => setData(null)}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-              ) : (
+              )}
+              {!data && (
                 <>
                   <small className="mt-2">
                     Apasand pe APLICA sunteti de acord cu{' '}
@@ -277,9 +262,27 @@ const ApplyModal = () => {
                     </a>{' '}
                     prelucrarilor de date
                   </small>
-                  <button type="submit" className="btn btn-xl d-block mx-auto">
-                    Aplica
-                  </button>
+                  {loading ? (
+                    <button
+                      className="btn btn-xl btn-success d-block mx-auto"
+                      type="button"
+                      disabled
+                    >
+                      <span
+                        className="spinner-grow spinner-grow-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>{' '}
+                      Loading...
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="btn btn-xl d-block mx-auto"
+                    >
+                      Aplica
+                    </button>
+                  )}
                 </>
               )}
             </div>
