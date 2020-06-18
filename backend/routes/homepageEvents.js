@@ -9,12 +9,13 @@ router.route("/contactRequest").post(async (req, res) => {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: "office@aurasjobs.ro", // sender address
-      to: email, // list of receivers
+      from: email, // sender address
+      to: "office@aurasjobs.ro", // list of receivers
       subject: "You contact request from aurasjobs", // Subject line
       text: `Thank you for contacting us Mr. ${name}, we will try to reach you at ${phone}. Your message is ${message}`, // plain text body
       template: "newContact",
       context: {
+        layout: "newContact",
         name,
         email,
         phone,
@@ -32,7 +33,7 @@ router.route("/contactRequest").post(async (req, res) => {
     return res.status(500).json({
       success: false,
       error: {
-        msg: "Server error, please inform the administrator.",
+        msg: "Mailling server error, please inform the administrator.",
       },
       data: null,
     });
@@ -77,63 +78,56 @@ router.route("/new-application").post(async (req, res) => {
         data: null,
       });
 
-    // Creat folder and path
-    const path = `${__dirname}/../../frontend/public/uploads/${
-      req.body.name
-    }_${Date.now()}`;
+    // // Creat folder and path
+    // const path = `${__dirname}/../../frontend/public/uploads/${
+    //   req.body.name
+    // }_${Date.now()}`;
 
-    // Use the mv() method to place the files on your server
-    cv.mv(`${path}/${cv.name}`, (err) => {
-      if (err)
-        return res.status(500).json({
-          success: false,
-          error: {
-            msg: "Server error. Please contact the administrator.",
-          },
-          data: null,
-        });
-    });
+    // // Use the mv() method to place the files on your server
+    // cv.mv(`${path}/${cv.name}`, (err) => {
+    //   if (err)
+    //     return res.status(500).json({
+    //       success: false,
+    //       error: {
+    //         msg: "Server error. Please contact the administrator.",
+    //       },
+    //       data: null,
+    //     });
+    // });
 
-    // The id is not required
-    const id = req.files.id || null;
-    if (id) {
-      id.mv(`${path}/${id.name}`, (err) => {
-        if (err)
-          return res.status(500).json({
-            success: false,
-            error: {
-              msg: "Server error. Please contact the administrator.",
-            },
-            data: null,
-          });
-      });
-    }
-
-    const application = req.body;
-    const { name, email, phone, message } = application;
-
+    const { name, email, phone, message, department } = req.body;
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: "office@aurasjobs.ro", // sender address
-      to: email, // list of receivers
-      subject: "You contact request from aurasjobs", // Subject line
-      text: `Thank you for contacting us Mr. ${name}, we will try to reach you at ${phone}. Your message is ${message}`, // plain text body
-      template: "newContact",
+      from: email, // sender address
+      to: "office@aurasjobs.ro", // list of receivers
+      subject: `New Candidate ${name} Departament - ${department}`, // Subject line
+      text: `Thank you for contacting us Mr. ${name}, we will try to reach you at ${phone} or ${email}`, // plain text body
+      template: "newApplication",
       context: {
+        layout: "newApplication",
         name,
         email,
         phone,
         message,
+        department,
         year: new Date().getFullYear(),
       },
+      attachments: [
+        {
+          filename: `${name}_cv.${cv.name.split(".").pop()}`,
+          content: cv.data,
+          encoding: cv.encoding,
+        },
+      ],
     });
 
     return res.json({
       success: true,
       error: false,
-      data: application,
+      data: req.body,
     });
   } catch (error) {
+    console.log(error);
     return res.json({
       success: false,
       error: {

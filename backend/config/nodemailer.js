@@ -22,7 +22,7 @@ const handlebarOptions = {
     extName: ".handlebars",
     partialsDir: "./emails",
     layoutsDir: "./emails",
-    defaultLayout: "newContact.handlebars",
+    defaultLayout: "newContact",
   },
   viewPath: "./emails",
   extName: ".handlebars",

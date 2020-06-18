@@ -1,31 +1,4 @@
-<html>
-
-<head>
-  <title>Contact Request</title>
-  <link rel="important stylesheet" href="chrome://messagebody/skin/messageBody.css">
-</head>
-
-<body>
-  <table border=0 cellspacing=0 cellpadding=0 width="100%" class="header-part1">
-    <tr>
-      <td><b>Subject: </b>Contact Request</td>
-    </tr>
-    <tr>
-      <td><b>From: </b>aurasjobs &lt;no-reply@aurasjobs.ro&gt;</td>
-    </tr>
-    <tr>
-      <td><b>Date: </b>6/7/2020, 3:13 PM</td>
-    </tr>
-  </table>
-  <table border=0 cellspacing=0 cellpadding=0 width="100%" class="header-part2">
-    <tr>
-      <td><b>To: </b>razvan_leon@yahoo.com</td>
-    </tr>
-    <tr>
-      <td><b>CC: </b>office@aurasjobs.ro</td>
-    </tr>
-  </table><br>
-  <!DOCTYPE html
+<!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -81,34 +54,42 @@
                     <td class="content-cell"
                       style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                       <p
-                        style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
-                        Thank you for contacting us Ms/Mr Leon Răzvan Georgian <br>
-                        Phone Number: 0774038092</p>
-                      <table class="panel" width="100%" cellpadding="0" cellspacing="0"
-                        style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 0 0 21px;">
-                        <tr>
-                          <td class="panel-content"
-                            style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #EDEFF2; padding: 16px;">
-                            <table width="100%" cellpadding="0" cellspacing="0"
-                              style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                              <tr>
-                                <td class="panel-item"
-                                  style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 0;">
-                                  <h3
-                                    style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 14px; font-weight: bold; margin-top: 0; text-align: left;">
-                                    Your message is:</h3>
-                                  <i style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">Buna
-                                    ziua , numele meu este Leon Răzvan Georgian am 22 de ani si chiar mi.as dori sa
-                                    muncesc alături de echipa dumneavoastra</i>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
+                        style="font-family: Avenir, Helvetica, sans-serif; font-weight: bold; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
+                        We have a new candidate!</p>
                       <p
                         style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
-                        <br></p>
+                        Name: {{name}} <br>
+                        Department: {{department}} <br>
+                        Email: {{email}} <br>
+                        Phone Number: {{phone}}</p>
+                      <p
+                        style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
+                        <a href="http://aurasjobs.ro/uploads/candidates/1606202006_Mihnea%20Teodor%20Gaza/1606202006_cv.pdf"
+                          target="_blank"
+                          style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869D4;">Click
+                          here to download application CV</a></p>
+                      {{#if message}}
+                        <table class="panel" width="100%" cellpadding="0" cellspacing="0"
+                          style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 0 0 21px;">
+                          <tr>
+                            <td class="panel-content"
+                              style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #EDEFF2; padding: 16px;">
+                              <table width="100%" cellpadding="0" cellspacing="0"
+                                style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
+                                <tr>
+                                  <td class="panel-item"
+                                    style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 0;">
+                                    <h3
+                                      style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 14px; font-weight: bold; margin-top: 0; text-align: left;">
+                                      Your message is:</h3>
+                                    <i style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">{{message}}</i>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      {{/if}}
                       <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
                         <tr>
@@ -173,7 +154,3 @@
   </body>
 
   </html>
-
-</body>
-
-</html>
