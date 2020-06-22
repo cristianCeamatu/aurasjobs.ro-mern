@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 
 import ukFlag from './img/uk_flag_42x28.png';
 
-const NavbarLinks = () => {
+const NavbarLinks = ({ closeCollapseOnClick }) => {
   return (
     <Nav className="navbar-nav ml-auto">
       <NavItem className="nav-item">
@@ -13,10 +13,11 @@ const NavbarLinks = () => {
           to="about"
           spy
           smooth
-          offset={-70}
+          offset={-20}
           duration={500}
           className="nav-link"
           href="#about"
+          onClick={closeCollapseOnClick}
         >
           Despre
         </Link>
@@ -27,10 +28,11 @@ const NavbarLinks = () => {
           to="jobs"
           spy
           smooth
-          offset={-70}
+          offset={-20}
           duration={500}
           className="nav-link"
-          href="#about"
+          href="#jobs"
+          onClick={closeCollapseOnClick}
         >
           Joburi
         </Link>
@@ -41,10 +43,11 @@ const NavbarLinks = () => {
           to="journey"
           spy
           smooth
-          offset={-70}
+          offset={-20}
           duration={500}
           className="nav-link"
           href="#journey"
+          onClick={closeCollapseOnClick}
         >
           Etape
         </Link>
@@ -55,10 +58,11 @@ const NavbarLinks = () => {
           to="apply"
           spy
           smooth
-          offset={-70}
+          offset={-20}
           duration={500}
           className="nav-link"
           href="#apply"
+          onClick={closeCollapseOnClick}
         >
           Aplica
         </Link>
@@ -69,16 +73,21 @@ const NavbarLinks = () => {
           to="contact"
           spy
           smooth
-          offset={-70}
+          offset={-20}
           duration={500}
           className="nav-link"
           href="#contact"
+          onClick={closeCollapseOnClick}
         >
           Contact
         </Link>
       </NavItem>
       <NavItem className="nav-item p-0">
-        <NavLink className="nav-link flag pb-2" href="#contact">
+        <NavLink
+          className="nav-link flag pb-2 disabled"
+          href="/"
+          onClick={(e) => e.preventDefault()}
+        >
           <img
             src={ukFlag}
             width="36"

@@ -9,8 +9,7 @@ const app = express();
 dotenv.config({ path: "./config/config.env" });
 
 // Set the routers
-const contactRoute = require("./routes/contact.js");
-const applicationRoute = require("./routes/application.js");
+const homepageEventsRoute = require("./routes/homepageEvents.js");
 
 // Body parsers
 app.use(fileUpload({ createParentPath: true }));
@@ -21,8 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 5000;
 
 // Get the Api Routes
-app.use("/api/v1/contact", contactRoute);
-app.use("/api/v1/application", applicationRoute);
+app.use("/api/v1/events", homepageEventsRoute);
 
 // If the environment is production
 if (process.env.NODE_ENV === "production") {

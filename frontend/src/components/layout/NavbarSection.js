@@ -15,7 +15,7 @@ const NavbarSection = () => {
   // Clicking the brand logo
   function scrollToTop(e) {
     e.preventDefault();
-    toggleNavbar();
+    setOpen(false);
     scroll.scrollToTop();
   }
 
@@ -46,7 +46,7 @@ const NavbarSection = () => {
           Menu <FaBars />
         </NavbarToggler>
         <Collapse isOpen={open} navbar>
-          <NavbarLinks />
+          <NavbarLinks closeCollapseOnClick={() => setOpen(false)} />
           {/* Hide on large devices, will show in Header on large devices  */}
           <div className="d-block d-lg-none">
             <NavbarLinksContacts />

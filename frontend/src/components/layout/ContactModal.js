@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import ContactModalFooter from './ContactModalFooter';
 
 const ContactModal = () => {
-  const [submited, setSubmited] = React.useState(false);
-  const [contact, setContact] = React.useState({});
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // Textarea remaining chars
+  const [messageLength, setMessageLength] = useState(0);
+
   const { register, handleSubmit, reset, errors } = useForm();
 
   const onSubmit = async (data) => {
-    try {
-      const response = await axios.post('/api/v1/contact', data);
+    setLoading(true);
+    setError('');
 
-      setSubmited(true);
-      setContact(response.data.data);
+    try {
+      const response = await axios.post('/api/v1/events/contactRequest', data);
+      setData(response.data.data);
+      setLoading(false);
       reset();
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
+      setLoading(false);
     }
   };
-
-  // Textarea remaining chars
-  const [messageLength, setMessageLength] = React.useState(0);
 
   return (
     <section id="contact">
@@ -150,27 +155,47 @@ const ContactModal = () => {
                 </div>
                 <div className="clearfix" />
                 <div className="col-lg-12 text-center">
-                  {submited ? (
-                    <div className="alert alert-info">
+                  {error && <p className="bg-danger text-white p-2">{error}</p>}
+                  {data && (
+                    <div className="alert alert-info alert-dismissible fade show my-2">
                       Iti multumim pentru cererea de contact. Te rugam sa
                       verifici detaliile:{' '}
-                      <ul className="list-group my-2">
+                      <ul className="list-group my-1">
                         <li className="list-group-item">
                           <small className="text-danger">
-                            {' '}
-                            Telefon: {contact.phone}
+                            Telefon: {data.phone}
                           </small>
                         </li>
                         <li className="list-group-item">
                           <small className="text-danger">
-                            {' '}
-                            Email: {contact.email}
+                            Email: {data.email}
                           </small>
                         </li>
                       </ul>
                       Daca nu te vom suna in urmatoarele zile te rugam sa ne
                       contactezi telefonic.
+                      <button
+                        type="button"
+                        className="close text-danger"
+                        onClick={() => setData(null)}
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
+                  )}
+                  {!data && loading ? (
+                    <button
+                      className="btn btn-xl d-block mx-auto"
+                      type="button"
+                      disabled
+                    >
+                      <span
+                        className="spinner-grow spinner-grow-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>{' '}
+                      Loading...
+                    </button>
                   ) : (
                     <button type="submit" className="btn btn-xl">
                       Trimite

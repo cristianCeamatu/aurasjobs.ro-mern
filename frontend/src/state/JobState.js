@@ -229,7 +229,7 @@ const jobs = [
   },
   {
     id: 4,
-    company: 'Scylla/Edelweiss Gastro',
+    company: 'Scylla Edelweiss Gastro',
     label: 'Vase Croaziera',
     bgColor: 'info',
     img: scylla,
