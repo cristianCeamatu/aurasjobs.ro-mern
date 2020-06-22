@@ -84,9 +84,9 @@ const NavbarLinks = ({ closeCollapseOnClick }) => {
       </NavItem>
       <NavItem className="nav-item p-0">
         <NavLink
-          className="nav-link flag pb-2"
+          className="nav-link flag pb-2 disabled"
           href="/"
-          onClick={closeCollapseOnClick}
+          onClick={(e) => e.preventDefault()}
         >
           <img
             src={ukFlag}
