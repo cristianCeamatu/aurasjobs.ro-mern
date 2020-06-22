@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'reactstrap';
 import Typed from 'react-typed';
 import { Link } from 'react-scroll';
 
@@ -8,7 +7,7 @@ import NavbarLinksContacts from '../layout/NavbarLinksContacts';
 const Header = () => {
   return (
     <header>
-      <Container className="container">
+      <div className="container">
         <div className="intro-text">
           <h1 className="intro-lead-in">Locuri de munca</h1>
           <div className="intro-heading">
@@ -51,7 +50,7 @@ const Header = () => {
             <NavbarLinksContacts />
           </div>
         </div>
-      </Container>
+      </div>
     </header>
   );
 };
