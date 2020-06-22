@@ -264,7 +264,7 @@ const ApplyModal = () => {
                   </small>
                   {loading ? (
                     <button
-                      className="btn btn-xl btn-success d-block mx-auto"
+                      className="btn btn-xl d-block mx-auto"
                       type="button"
                       disabled
                     >
