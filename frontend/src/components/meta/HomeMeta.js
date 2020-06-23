@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 const HomeMeta = () => {
   return (
     <Helmet>
+      <html lang="ro" />
       <meta charset="utf-8" />
       <meta
         name="viewport"
