@@ -9,9 +9,6 @@
 
 ![screenshot](./.github/app-mockup.png)
 
-
-## Currently planing to work on the internationalization using the react-i18next package.
-
 [Live Demo link](https://aurasjobs-mern.herokuapp.com/)
 
 ## Built With
@@ -30,6 +27,10 @@
 - **React-scroll** animates scrolling to sections on the page
 - **React-typed**: typed effect on the showcase component
 - **Reactstrap**: good-looking design components, in react!
+
+## Future features
+
+Currently working on the internationalization using the react-i18next package.
 
 # Getting started
 
