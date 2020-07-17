@@ -35,35 +35,32 @@
 
 ## Installation
 
-Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
-
-
 Clone the repository
 
-    git clone git@github.com:cristianCeamatu/aurasjobs.ro-laravel.git
+    git clone git@github.com:cristianCeamatu/aurasjobs-mern.git
 
 Switch to the repo folder
 
-    cd aurasjobs.ro-laravel
+    cd aurasjobs.ro-mern
 
-Install all the dependencies using composer
+Install all the dependencies in the backend folder
 
-    composer install
+    cd backend && npm install
 
-Install all the javascript dependencies using npm
+Install all the dependencies in the frontend folder
 
-    npm install
+    cd frontend && npm install
 
-Start the local development server
+Start the local development server, run the following script from the backend folder
 
-    php artisan serve
+    npm run dev
 
-You can now access the server at http://localhost:8000
+You can now access the website at http://localhost:3000
 
 **TL;DR command list**
 
 ```
-    git clone git@github.com:cristianCeamatu/aurasjobs.ro-laravel.git
+    git clone git@github.com:cristianCeamatu/aurasjobs-mern.git
     cd aurasjobs.ro-laravel
     composer install
     npm install
