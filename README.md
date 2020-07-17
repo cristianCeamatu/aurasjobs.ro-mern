@@ -1,16 +1,16 @@
 ![Hireable](https://cdn.rawgit.com/hiendv/hireable/master/styles/flat/yes.svg) 
 # ![Mern stack logo](./.github/stack.jpg)
 
-> ### This project is a rebuild version of the Laravel production used single-page website [aurasjobs.ro](https://github.com/cristianCeamatu/aurasjobs.ro-laravel). The original app is used in production for a Recruiting agency, candidates can apply directly through a form on the website. The client will receive an email for each application or contact request, currently working on an admin page where he can manage the database of the candidate's applications and contact requests. The website is mobile responsive.
+> ### This project is a rebuild version of the single-page website [aurasjobs.ro](https://github.com/cristianCeamatu/aurasjobs.ro-laravel) which is built with Laravel/PHP. The original app is used in production for a Recruiting agency, candidates can apply directly through a form on the website. The client will receive an email for each application or contact request, currently working on an admin page where he can manage the database of the candidate's applications and contact requests. The website is mobile responsive.
 
-----------
+### This website was created in order to change the stack of the original website from Laravel to MERN.
 
 ## Website mockup
 
 ![screenshot](./.github/app-mockup.png)
 
 
-## Currently planing to work on the internationalization using react-i18next package.
+## Currently planing to work on the internationalization using the react-i18next package.
 
 [Live Demo link](https://aurasjobs-mern.herokuapp.com/)
 
