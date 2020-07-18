@@ -34,6 +34,9 @@ Currently working on the internationalization using the react-i18next package.
 
 # Getting started
 
+## Prerequisites
+1. Node/NPM - [Installing Node](https://nodejs.org/en/)
+
 ## Installation
 
 Clone the repository
