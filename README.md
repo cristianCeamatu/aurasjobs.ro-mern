@@ -124,8 +124,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 - Email: [cristian.ceamatu@gmail.com](cristian.ceamatu@gmail.com)
 - Github: [https://github.com/cristianCeamatu](https://github.com/cristianCeamatu)
-- Twitter: [https://twitter.com/CeamatuV](https://twitter.com/CeamatuV)
-- Linkedin: [https://www.linkedin.com/in/ceamatu-cristian-viorel-7a5469136/](https://www.linkedin.com/in/ceamatu-cristian-viorel-7a5469136/)
+- Twitter: [https://twitter.com/CristianCeamatu](https://twitter.com/CristianCeamatu)
+- Linkedin: [https://www.linkedin.com/in/ceamatu-cristian/](https://www.linkedin.com/in/ceamatu-cristian/)
 
 ## Show your support
 
